@@ -1,0 +1,41 @@
+name: SwiftLint
+on:
+  pull_request:
+    paths:
+      - .github/workflows/swiftlint.yml
+      - ymls/swiftlint.yml
+      - Sources/**/*.swift
+jobs:
+  build:
+    name: Run linter
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: SwiftLint
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD: ${{ github.event.pull_request.head.sha }}
+        run: |
+          docker pull ghcr.io/realm/swiftlint:latest
+
+          exit_status=0
+
+          git diff $BASE $HEAD --name-only --diff-filter=d | grep 'Sources/.*\.swift' | ( \
+            while read FILE
+            do
+              echo "::group::$FILE"
+              docker run -v `pwd`:`pwd` -w `pwd` ghcr.io/realm/swiftlint:latest \
+              swiftlint lint \
+                --config ymls/swiftlint.yml \
+                --path "$FILE" \
+                --reporter github-actions-logging \
+                || exit_status=1
+              echo "exit_status: $exit_status"
+              echo "::endgroup::"
+            done
+
+            exit $exit_status
+          )
