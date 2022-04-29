@@ -26,7 +26,7 @@ jobs:
         uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.PERSONAL_TOKEN }}
-          repository: drspoton/olo-customer-mobile
+          repository: drspoton/ios-customer-mobile
           event-type: olo-framework-tested
   status:
     needs:
