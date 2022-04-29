@@ -20,12 +20,17 @@ jobs:
       - tests
     name: Deploy olo-customer-mobile
     runs-on: macos-11
+    strategy:
+      matrix:
+        repository:
+          - drspoton/ios-customer-mobile
+          - drspoton/ios-custom-apps
     steps:
       - name: Dispatch olo-customer-mobile
         uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.PERSONAL_TOKEN }}
-          repository: drspoton/ios-customer-mobile
+          repository: ${{ matrix.repository }}
           event-type: my-event
   status:
     needs:
