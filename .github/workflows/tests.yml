@@ -6,7 +6,6 @@ on:
 
 jobs:
   tests:
-    name: Run tests
     runs-on: macos-11
     steps:
       - name: Checkout
@@ -16,23 +15,20 @@ jobs:
           echo "tests go here"
           # exit $(($RANDOM%2))
 
-  deploy-ios-olo-framework:
-    needs:
-      - tests
-    name: Deploy ios-olo-framework
-    uses: drspoton/ios-olo-framework/.github/workflows/deploy.yml@main
-
   deploy-ios-custom-apps:
     needs:
       - tests
-    name: Deploy ios-custom-apps
     uses: drspoton/ios-custom-apps/.github/workflows/deploy.yml@main
+
+  deploy-ios-customer-mobile:
+    needs:
+      - tests
+    uses: drspoton/ios-customer-mobile/.github/workflows/deploy.yml@main
 
   status:
     needs:
       - deploy-ios-custom-apps
-      - deploy-ios-olo-framework
-    name: Status
+      - deploy-ios-customer-mobile
     runs-on: macos-11
     steps:
       - name: Show status
