@@ -23,15 +23,17 @@ jobs:
     strategy:
       matrix:
         repository:
-          - drspoton/ios-customer-mobile
-          - drspoton/ios-custom-apps
+          - ios-customer-mobile
+          - ios-custom-apps
     steps:
-      - name: Dispatch olo-customer-mobile
-        uses: peter-evans/repository-dispatch@v2
+      - name: Dispatch workflow
+        uses: convictional/trigger-workflow-and-wait@v1.6.2
         with:
-          token: ${{ secrets.PERSONAL_TOKEN }}
-          repository: ${{ matrix.repository }}
-          event-type: my-event
+         owner: drspoton
+         repo: ${{ env.repository }}
+         github_token: ${{ secrets.PERSONAL_TOKEN  }}
+         workflow_file_name: deploy.yml
+         wait_interval: 5
   status:
     needs:
       - deploy
