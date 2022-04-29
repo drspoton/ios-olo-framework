@@ -15,7 +15,7 @@ jobs:
         run: |
           sleep 5
           echo "tests go here"
-          exit $(($RANDOM%2))
+          # exit $(($RANDOM%2))
   deploy:
     needs:
       - tests
@@ -28,3 +28,12 @@ jobs:
           token: ${{ secrets.PERSONAL_TOKEN }}
           repository: drspoton/olo-customer-mobile
           event-type: olo-framework-tested
+  status:
+    needs:
+      - deploy
+    name: Status
+    runs-on: macos-11
+    steps:
+      - name: Show status
+        run: |
+          echo "Something is no, yes?"
