@@ -15,21 +15,23 @@ jobs:
         run: |
           echo "tests go here"
           # exit $(($RANDOM%2))
-  deploy:
+
+  deploy-ios-olo-framework:
     needs:
       - tests
-    name: Deploy olo-customer-mobile
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        repository:
-          - ios-customer-mobile
-          - ios-custom-apps
-    uses: "drspoton/${{ matrix.repository }}/.github/workflows/deploy.yml@main"
+    name: Deploy ios-olo-framework
+    uses: drspoton/ios-olo-framework/.github/workflows/deploy.yml@main
+
+  deploy-ios-custom-apps:
+    needs:
+      - tests
+    name: Deploy ios-custom-apps
+    uses: drspoton/ios-custom-apps/.github/workflows/deploy.yml@main
 
   status:
     needs:
-      - deploy
+      - deploy-ios-custom-apps
+      - deploy-ios-olo-framework
     name: Status
     runs-on: macos-11
     steps:
