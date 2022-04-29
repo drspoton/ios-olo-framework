@@ -19,7 +19,7 @@ jobs:
     needs:
       - tests
     name: Deploy olo-customer-mobile
-    runs-on: macos-11
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         repository:
@@ -30,7 +30,7 @@ jobs:
         uses: convictional/trigger-workflow-and-wait@v1.6.2
         with:
          owner: drspoton
-         repo: ${{ env.repository }}
+         repo: ${{ matrix.repository }}
          github_token: ${{ secrets.PERSONAL_TOKEN  }}
          workflow_file_name: deploy.yml
          wait_interval: 5
