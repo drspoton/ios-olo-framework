@@ -13,12 +13,11 @@ jobs:
       - name: Tests
         run: |
           echo "tests go here"
-          # exit $(($RANDOM%2))
 
-  deploy-ios-custom-apps:
-    needs:
-      - tests
-    uses: drspoton/ios-custom-apps/.github/workflows/deploy.yml@main
+  # deploy-ios-custom-apps:
+  #   needs:
+  #     - tests
+  #   uses: drspoton/ios-custom-apps/.github/workflows/deploy.yml
 
   deploy-ios-customer-mobile:
     needs:
@@ -27,7 +26,7 @@ jobs:
 
   status:
     needs:
-      - deploy-ios-custom-apps
+      # - deploy-ios-custom-apps
       - deploy-ios-customer-mobile
     runs-on: macos-11
     steps:
