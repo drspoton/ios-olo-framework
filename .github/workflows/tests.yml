@@ -25,7 +25,7 @@ jobs:
         repository:
           - ios-customer-mobile
           - ios-custom-apps
-    uses: drspoton/${{ matrix.repository }}/.github/workflows/deploy.yml@main
+    uses: "drspoton/${{ matrix.repository }}/.github/workflows/deploy.yml@main"
 
   status:
     needs:
