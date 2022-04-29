@@ -25,15 +25,8 @@ jobs:
         repository:
           - ios-customer-mobile
           - ios-custom-apps
-    steps:
-      - name: Dispatch workflow
-        uses: convictional/trigger-workflow-and-wait@v1.6.2
-        with:
-         owner: drspoton
-         repo: ${{ matrix.repository }}
-         github_token: ${{ secrets.PERSONAL_TOKEN  }}
-         workflow_file_name: deploy.yml
-         wait_interval: 5
+    uses: drspoton/${{ matrix.repository }}/.github/workflows/deploy.yml@main
+
   status:
     needs:
       - deploy
