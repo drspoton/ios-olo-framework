@@ -20,14 +20,12 @@ jobs:
   deploy-ios-custom-apps:
     needs:
       - tests
-    steps:
-      - uses: drspoton/ios-custom-apps/.github/workflows/deploy.yml@main
+    uses: drspoton/ios-custom-apps/.github/workflows/deploy.yml@main
 
   deploy-ios-customer-mobile:
     needs:
       - tests
-    steps:
-      - uses: drspoton/ios-customer-mobile/.github/workflows/deploy.yml@main
+    uses: drspoton/ios-customer-mobile/.github/workflows/deploy.yml@main
 
   status:
     needs:
