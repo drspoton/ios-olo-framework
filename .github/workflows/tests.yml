@@ -27,7 +27,7 @@ jobs:
         with:
           token: ${{ secrets.PERSONAL_TOKEN }}
           repository: drspoton/ios-customer-mobile
-          event-type: olo-framework-tested
+          event-type: my-event
   status:
     needs:
       - deploy
